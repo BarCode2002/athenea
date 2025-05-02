@@ -1,0 +1,39 @@
+.table-container {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+.table tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: #b0abab;
+}
+
+.no-data {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}

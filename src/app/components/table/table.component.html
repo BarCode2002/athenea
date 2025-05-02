@@ -1,0 +1,23 @@
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Cognoms</th>
+        <th>Email</th>
+        <th>DNI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (click)="goToProfile(user.id)">
+        <td>{{ user.name }}</td>
+        <td>{{ user.surname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.id }}</td>
+      </tr>
+      <tr *ngIf="users.length === 0">
+        <td colspan="4" class="no-data">No users found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
