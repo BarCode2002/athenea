@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User, UserService } from '../../services/users.service';
 
 @Component({
   selector: 'app-newUser',
@@ -10,13 +11,18 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./newUser.component.css']
 })
 export class NewUserComponent {
+
+  constructor(
+      private userService: UserService
+  ) {}
+
   showModal = false;
 
-  newUser = {
-    nom: '',
-    cognom: '',
+  newUser: User = {
+    name: '',
+    surname: '',
     email: '',
-    dni: ''
+    id: ''
   };
 
   openModal() {
@@ -30,12 +36,12 @@ export class NewUserComponent {
 
   submitForm() {
     console.log('New User:', this.newUser);
-    // TODO: send data to backend
+    this.userService.addUser(this.newUser);
     this.closeModal();
   }
 
   resetForm() {
-    this.newUser = { nom: '', cognom: '', email: '', dni: '' };
+    this.newUser = { name: '', surname: '', email: '', id: '' };
   }
 
 }

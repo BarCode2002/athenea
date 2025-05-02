@@ -1,0 +1,10 @@
+<button class="import-table-btn" (click)="openModal()">Importa una taula</button>
+
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <button (click)="closeModal()">Tanca</button>
+    <p>Format JSON i CSV suportats</p>
+    <input type="file" (change)="onFileSelected($event)" accept=".json,.csv" />
+  </div>
+</div>
+

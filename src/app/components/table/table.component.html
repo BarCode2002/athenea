@@ -1,23 +1,52 @@
 <div class="table-container">
+  <input type="text" [(ngModel)]="inputName" placeholder="Nom">
+  <button (click)="eraseInput('name')">Esborra</button>
+  <input type="text" [(ngModel)]="inputSurname" placeholder="Cognom">
+  <button (click)="eraseInput('surname')">Esborra</button>
+  <input type="text" [(ngModel)]="inputEmail" placeholder="Email">
+  <button (click)="eraseInput('email')">Esborra</button>
+  <input type="text" [(ngModel)]="inputId" placeholder="DNI">
+  <button (click)="eraseInput('id')">Esborra</button>
+  <button (click)="eraseAllInputs()">Esborra tot</button>
   <table class="table">
     <thead>
       <tr>
-        <th>Nom</th>
-        <th>Cognoms</th>
-        <th>Email</th>
-        <th>DNI</th>
+        <th>Nom
+          <button (click)="sort('name')">
+            {{ sortColumn === 'name' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
+          </button>
+        </th>
+        <th>Cognoms
+          <button (click)="sort('surname')">
+            {{ sortColumn === 'surname' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
+          </button>
+        </th>
+        <th>Email
+          <button (click)="sort('email')">
+            {{ sortColumn === 'email' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
+          </button>
+        </th>
+        <th>DNI
+          <button (click)="sort('id')">
+            {{ sortColumn === 'id' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users" (click)="goToProfile(user.id)">
-        <td>{{ user.name }}</td>
-        <td>{{ user.surname }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.id }}</td>
-      </tr>
-      <tr *ngIf="users.length === 0">
-        <td colspan="4" class="no-data">No users found</td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <tr *ngFor="let user of getUsersForCurrentPage()" (click)="goToProfile(user.id)">
+          <td>{{ user.name }}</td>
+          <td>{{ user.surname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.id }}</td>
+        </tr>
+          <tr *ngIf="users.length === 0">
+          <td colspan="4" class="no-data">Cap usuari</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button (click)="previous()" [disabled]="currentPage === 1">Anteriors</button>
+    <button (click)="next()" [disabled]="currentPage * usersPerPage >= totalUsers">Següents</button>
 </div>

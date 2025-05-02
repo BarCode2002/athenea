@@ -1,0 +1,9 @@
+<button class="export-table-btn" (click)="openModal()">Decarrega la taula</button>
+
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <button class="export-table-btn" (click)="exportPDF()">PDF</button>
+    <button class="export-table-btn" (click)="exportCSV()">CSV</button>  
+  </div>
+</div>
+

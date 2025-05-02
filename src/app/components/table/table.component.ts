@@ -1,76 +1,119 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-interface User {
-  name: string;
-  surname: string;
-  email: string;
-  id: string;
-}
+import { User, UserService } from '../../services/users.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
 export class TableComponent {
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   users: User[] = [];
+  currentPage: number = 1;
+  usersPerPage: number = 10;
+  totalUsers: number = 0;
+
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+  inputName: string = '';
+  inputSurname: string = '';
+  inputEmail: string = '';
+  inputId: string = '';
+
+  eraseAllInputs() {
+    this.inputName = '';
+    this.inputSurname = '';
+    this.inputEmail = '';
+    this.inputId = '';
+  }
+
+  eraseInput(inputToDelete: string) {
+    switch (inputToDelete) {
+      case 'name':
+        this.inputName = ''; 
+        break;
+      case 'surname':
+        this.inputSurname = '';
+        break;
+      case 'email':
+        this.inputEmail = '';
+        break;
+      case 'id':
+        this.inputId = '';
+        break;
+      default:
+        console.error('Invalid input field');
+    }
+  }
+
+  sort(column: keyof User): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+    this.users.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      if (valueA < valueB) {
+        return this.sortDirection === 'asc' ? -1 : 1;
+      } else if (valueA > valueB) {
+        return this.sortDirection === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.users = [
-      {
-        "name": "Jhon",
-        "surname": "Doe",
-        "email": "jhon.doe@email.com",
-        "id": "4782938L"
-      },
-      {
-        "name": "Alice",
-        "surname": "Combs",
-        "email": "alice.combs@email.com",
-        "id": "4749204T"
-      },
-      {
-        "name": "Grace",
-        "surname": "Hawkins",
-        "email": "grace.hawkins@email.com",
-        "id": "5671938K"
-      },
-      {
-        "name": "Wayne",
-        "surname": "Stuart",
-        "email": "wayne.stuart@email.com",
-        "id": "9022108P"
-      },
-      {
-        "name": "Juan",
-        "surname": "Spence",
-        "email": "juan.spence@email.com",
-        "id": "4321165C"
-      },
-      {
-        "name": "Ronan",
-        "surname": "Orozco",
-        "email": "ronan.orozco@email.com",
-        "id": "6738145E"
-      },
-      {
-        "name": "Sylvia",
-        "surname": "Vega",
-        "email": "sylvia.vega@email.com",
-        "id": "2031145J"
-      }
-    ];
+    this.users = this.userService.getUsers();
+    this.totalUsers = this.users.length;
+  }
+
+  getFilteredUsers(): User[] {
+    return this.users.filter(user => 
+      user.name.toLocaleLowerCase().includes(this.inputName.toLocaleLowerCase()) &&
+      user.surname.toLocaleLowerCase().includes(this.inputSurname.toLocaleLowerCase()) &&
+      user.email.toLocaleLowerCase().includes(this.inputEmail.toLocaleLowerCase()) &&
+      user.id.toLocaleLowerCase().includes(this.inputId.toLocaleLowerCase())
+    );
+  }
+
+  getUsersForCurrentPage(): User[] {
+    const startIndex = (this.currentPage - 1) * this.usersPerPage;
+    const endIndex = startIndex + this.usersPerPage;
+    const filteredUsers = this.getFilteredUsers();
+    this.totalUsers = filteredUsers.length;
+    return filteredUsers.slice(startIndex, endIndex);
   }
 
   goToProfile(userId: string): void {
     this.router.navigate(['/profile', userId]);
+  }
+
+  next() {
+    if (this.currentPage * this.usersPerPage < this.totalUsers) {
+      this.currentPage++;
+    }
+  }
+
+  previous() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 
 }
