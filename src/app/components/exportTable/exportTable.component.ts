@@ -56,4 +56,15 @@ export class ExportTableComponent {
     this.showModal = false;
   }
 
+  exportJSON(): void {
+    const dataStr = JSON.stringify(this.userService.getUsers(), null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `users-${new Date().toISOString()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
 }

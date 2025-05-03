@@ -62,7 +62,6 @@ export class UserService {
       { name: 'Harper', surname: 'Adams', email: 'harper.adams@email.com', id: '2837465L' },
       { name: 'Owen', surname: 'Nelson', email: 'owen.nelson@email.com', id: '8374129M' }
     ];
-    
   }
 
   getUsers(): User[] {
