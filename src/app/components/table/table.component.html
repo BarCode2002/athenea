@@ -1,65 +1,54 @@
 <div class="table-container">
-  <button class="toggle-search-btn" (click)="showSearch = !showSearch">
-    {{ showSearch ? 'Amaga filtres' : 'Mostra filtres' }}
-  </button>
-
+  <div class="filter-buttons-container">
+    <button class="filter-btn" (click)="showSearch = !showSearch">
+      {{ showSearch ? 'Amaga filtres' : 'Mostra filtres' }}
+    </button>
+    <button class="filter-btn" (click)="eraseAllInputs()">Esborra tot els filtres</button>
+  </div>
   <div class="input-group" *ngIf="showSearch">
-    <div class="input-field">
-      <input type="text" [(ngModel)]="inputName" placeholder="Nom" />
-      <button (click)="eraseInput('name')">✕</button>
-    </div>
-    <div class="input-field">
-      <input type="text" [(ngModel)]="inputSurname" placeholder="Cognom" />
-      <button (click)="eraseInput('surname')">✕</button>
-    </div>
-    <div class="input-field">
-      <input type="text" [(ngModel)]="inputEmail" placeholder="Email" />
-      <button (click)="eraseInput('email')">✕</button>
-    </div>
-    <div class="input-field">
-      <input type="text" [(ngModel)]="inputId" placeholder="DNI" />
-      <button (click)="eraseInput('id')">✕</button>
-    </div>
-    <button class="clear-all-btn" (click)="eraseAllInputs()">Esborra tot</button>
+    <input type="text" [(ngModel)]="inputName" placeholder="Nom" />
+    <input type="text" [(ngModel)]="inputSurname" placeholder="Cognom" />
+    <input type="text" [(ngModel)]="inputEmail" placeholder="Email" />
+    <input type="text" [(ngModel)]="inputId" placeholder="DNI" />
   </div>
 
   <table class="table">
     <thead>
       <tr>
-        <th [class.sorted]="sortColumn === 'name'" class="fixed-column">
+        <th>
           <div class="column-header" (click)="sort('name')">
             Nom
-            <div class="sort-btn">
+            <div class="sort-arrows-container">
               <span class="arrow" [class.active]="sortColumn === 'name' && sortDirection === 'asc'">▲</span>
               <span class="arrow" [class.active]="sortColumn === 'name' && sortDirection === 'desc'">▼</span>
             </div>
           </div>
         </th>
         
-        <th [class.sorted]="sortColumn === 'surname'" class="fixed-column">
+        <th>
           <div class="column-header" (click)="sort('surname')">
             Cognoms
-            <div class="sort-btn">
+            <div class="sort-arrows-container">
               <span class="arrow" [class.active]="sortColumn === 'surname' && sortDirection === 'asc'">▲</span>
               <span class="arrow" [class.active]="sortColumn === 'surname' && sortDirection === 'desc'">▼</span>
             </div>
           </div>
         </th>
         
-        <th [class.sorted]="sortColumn === 'email'" class="fixed-column">
+        <th>
           <div class="column-header" (click)="sort('email')">
             Email
-            <div class="sort-btn">
+            <div class="sort-arrows-container">
               <span class="arrow" [class.active]="sortColumn === 'email' && sortDirection === 'asc'">▲</span>
               <span class="arrow" [class.active]="sortColumn === 'email' && sortDirection === 'desc'">▼</span>
             </div>
           </div>
         </th>
         
-        <th [class.sorted]="sortColumn === 'id'" class="fixed-column">
+        <th>
           <div class="column-header" (click)="sort('id')">
             DNI
-            <div class="sort-btn">
+            <div class="sort-arrows-container">
               <span class="arrow" [class.active]="sortColumn === 'id' && sortDirection === 'asc'">▲</span>
               <span class="arrow" [class.active]="sortColumn === 'id' && sortDirection === 'desc'">▼</span>
             </div>

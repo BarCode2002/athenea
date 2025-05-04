@@ -42,25 +42,6 @@ export class TableComponent {
     this.inputId = '';
   }
 
-  eraseInput(inputToDelete: string) {
-    switch (inputToDelete) {
-      case 'name':
-        this.inputName = ''; 
-        break;
-      case 'surname':
-        this.inputSurname = '';
-        break;
-      case 'email':
-        this.inputEmail = '';
-        break;
-      case 'id':
-        this.inputId = '';
-        break;
-      default:
-        console.error('Invalid input field');
-    }
-  }
-
   get totalPages(): number {
     return Math.ceil(this.totalUsers / this.usersPerPage);
   }
