@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { User, UserService } from '../../services/users.service';
 
 @Component({
-  selector: 'app-newUser',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './newUser.component.html',
-  styleUrls: ['./newUser.component.css']
+    selector: 'app-newUser',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './newUser.component.html',
+    styleUrls: ['./newUser.component.css']
 })
 export class NewUserComponent {
 

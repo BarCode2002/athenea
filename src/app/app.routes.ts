@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { LandingComponent } from './features/landing/landing.component';
-import { ProfileComponent } from './features/profile/profile.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },

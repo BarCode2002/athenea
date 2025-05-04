@@ -1,31 +1,40 @@
-.import-table-btn {
-  padding: 10px 20px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 20px;
+.modal-body {
+  text-align: center;
 }
 
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
+.modal-body p {
+  color: #333;
+  font-size: 1rem;
+}
+
+.file-input-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.file-upload-label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.modal-body input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  max-width: 300px;
+  cursor: pointer;
 }
 
-.modal {
-  background-color: white;
-  border-radius: 10px;
-  max-width: 400px;
-  display: flex;
-  justify-content: center;
+.modal-body input[type="file"]:focus {
+  outline: 2px solid #4CAF50;
+}
+
+.file-upload-label:hover,
+.file-upload-label:focus {
+  color: #4CAF50;
 }

@@ -1,10 +1,15 @@
-<button class="import-table-btn" (click)="openModal()">Importa una taula</button>
+<button class="top-nav-bar-btn" (click)="openModal()">Importa una taula</button>
 
 <div class="modal-backdrop" *ngIf="showModal">
   <div class="modal">
-    <button (click)="closeModal()">Tanca</button>
-    <p>Format JSON i CSV suportats</p>
-    <input type="file" (change)="onFileSelected($event)" accept=".json,.csv" />
+    <div class="modal-header">
+      <button class="close-modal-btn" (click)="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Formats suportats:</strong> JSON i CSV</p>
+      <div class="file-input-container">
+        <input type="file" id="file-upload" (change)="onFileSelected($event)" accept=".json,.csv" />
+      </div>
+    </div>
   </div>
 </div>
-

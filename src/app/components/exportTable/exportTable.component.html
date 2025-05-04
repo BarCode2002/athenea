@@ -1,10 +1,14 @@
-<button class="export-table-btn" (click)="openModal()">Decarrega la taula</button>
+<button class="top-nav-bar-btn" (click)="openModal()" aria-label="Descarregar la taula">Descarrega la taula</button>
 
 <div class="modal-backdrop" *ngIf="showModal">
   <div class="modal">
-    <button class="export-table-btn" (click)="exportPDF()">PDF</button>
-    <button class="export-table-btn" (click)="exportCSV()">CSV</button>  
-    <button class="export-table-btn" (click)="exportJSON()">JSON</button>  
+    <div class="modal-header">
+      <button class="close-modal-btn" (click)="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <button class="export-table-btn" (click)="exportPDF()" aria-label="Exporta com a PDF">PDF</button>
+      <button class="export-table-btn" (click)="exportCSV()" aria-label="Exporta com a CSV">CSV</button>  
+      <button class="export-table-btn" (click)="exportJSON()" aria-label="Exporta com a JSON">JSON</button>  
+    </div>
   </div>
 </div>
-

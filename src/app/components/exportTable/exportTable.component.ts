@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/users.service';
+import { User } from '../../services/users.service';
 import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
+import { FilteredUsersService } from '../../services/filtered-users.service';
 
 @Component({
-  selector: 'app-exportTable',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './exportTable.component.html',
-  styleUrls: ['./exportTable.component.css']
+    selector: 'app-exportTable',
+    imports: [CommonModule],
+    templateUrl: './exportTable.component.html',
+    styleUrls: ['./exportTable.component.css']
 })
 export class ExportTableComponent {
 
   constructor(
-      private userService: UserService
+      private filteredUsersService: FilteredUsersService
   ) {}
 
   showModal = false;
@@ -23,24 +23,30 @@ export class ExportTableComponent {
     this.showModal = true;
   }
 
+  closeModal() {
+    this.showModal = false;
+  }
+
   exportPDF() {
-    const table = this.userService.getUsers();
+    const users = this.filteredUsersService.getSnapshot();
     const doc = new jsPDF();
     const head = [['Nom', 'Cognom', 'Email', 'DNI']];
-    const data = table.map(user => [user.name, user.surname, user.email, user.id]);
+    const tableData = users.map(user => [user.name, user.surname, user.email, user.id]);
+  
     autoTable(doc, {
       head: head,
-      body: data,
+      body: tableData,
       startY: 20,
       theme: 'striped'
     });
+  
     doc.save('users.pdf');
     this.showModal = false;
   }
 
   exportCSV() {
     const header = ['Nom', 'Cognom', 'Email', 'DNI'];
-    const table = this.userService.getUsers();
+    const table = this.filteredUsersService.getSnapshot();
     const rows = table.map(user => [user.name, user.surname, user.email, user.id]);
       const csvContent = [header, ...rows]
       .map(row => row.map(item => `"${item}"`).join(','))
@@ -57,7 +63,7 @@ export class ExportTableComponent {
   }
 
   exportJSON(): void {
-    const dataStr = JSON.stringify(this.userService.getUsers(), null, 2);
+    const dataStr = JSON.stringify(this.filteredUsersService.getSnapshot(), null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

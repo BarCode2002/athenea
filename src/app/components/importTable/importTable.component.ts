@@ -1,14 +1,18 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
+import { UserService } from "../../services/users.service";
 
 @Component({
-  selector: 'app-importTable',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './importTable.component.html',
-  styleUrls: ['./importTable.component.css']
+    selector: 'app-importTable',
+    imports: [CommonModule],
+    templateUrl: './importTable.component.html',
+    styleUrls: ['./importTable.component.css']
 })
 export class ImportTableComponent {
+
+  constructor(
+      private userService: UserService
+  ) {}
 
   showModal = false;
 
@@ -55,6 +59,8 @@ export class ImportTableComponent {
           const data = JSON.parse(reader.result as string);
           if (Array.isArray(data) && this.validateUsers(data)) {
             console.log('Valid JSON:', data);
+            this.userService.addUsers(data);
+            this.closeModal();
           } else {
             console.error('Invalid JSON format');
           }
@@ -75,7 +81,9 @@ export class ImportTableComponent {
         });
   
         if (this.validateUsers(users)) {
+          this.userService.addUsers(users);
           console.log('Valid CSV data:', users);
+          this.closeModal();
         } else {
           console.error('Invalid CSV row data');
         }

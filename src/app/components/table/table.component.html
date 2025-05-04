@@ -1,52 +1,93 @@
 <div class="table-container">
-  <input type="text" [(ngModel)]="inputName" placeholder="Nom">
-  <button (click)="eraseInput('name')">Esborra</button>
-  <input type="text" [(ngModel)]="inputSurname" placeholder="Cognom">
-  <button (click)="eraseInput('surname')">Esborra</button>
-  <input type="text" [(ngModel)]="inputEmail" placeholder="Email">
-  <button (click)="eraseInput('email')">Esborra</button>
-  <input type="text" [(ngModel)]="inputId" placeholder="DNI">
-  <button (click)="eraseInput('id')">Esborra</button>
-  <button (click)="eraseAllInputs()">Esborra tot</button>
+  <button class="toggle-search-btn" (click)="showSearch = !showSearch">
+    {{ showSearch ? 'Amaga filtres' : 'Mostra filtres' }}
+  </button>
+
+  <div class="input-group" *ngIf="showSearch">
+    <div class="input-field">
+      <input type="text" [(ngModel)]="inputName" placeholder="Nom" />
+      <button (click)="eraseInput('name')">✕</button>
+    </div>
+    <div class="input-field">
+      <input type="text" [(ngModel)]="inputSurname" placeholder="Cognom" />
+      <button (click)="eraseInput('surname')">✕</button>
+    </div>
+    <div class="input-field">
+      <input type="text" [(ngModel)]="inputEmail" placeholder="Email" />
+      <button (click)="eraseInput('email')">✕</button>
+    </div>
+    <div class="input-field">
+      <input type="text" [(ngModel)]="inputId" placeholder="DNI" />
+      <button (click)="eraseInput('id')">✕</button>
+    </div>
+    <button class="clear-all-btn" (click)="eraseAllInputs()">Esborra tot</button>
+  </div>
+
   <table class="table">
     <thead>
       <tr>
-        <th>Nom
-          <button (click)="sort('name')">
-            {{ sortColumn === 'name' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
-          </button>
+        <th [class.sorted]="sortColumn === 'name'" class="fixed-column">
+          <div class="column-header" (click)="sort('name')">
+            Nom
+            <div class="sort-btn">
+              <span class="arrow" [class.active]="sortColumn === 'name' && sortDirection === 'asc'">▲</span>
+              <span class="arrow" [class.active]="sortColumn === 'name' && sortDirection === 'desc'">▼</span>
+            </div>
+          </div>
         </th>
-        <th>Cognoms
-          <button (click)="sort('surname')">
-            {{ sortColumn === 'surname' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
-          </button>
+        
+        <th [class.sorted]="sortColumn === 'surname'" class="fixed-column">
+          <div class="column-header" (click)="sort('surname')">
+            Cognoms
+            <div class="sort-btn">
+              <span class="arrow" [class.active]="sortColumn === 'surname' && sortDirection === 'asc'">▲</span>
+              <span class="arrow" [class.active]="sortColumn === 'surname' && sortDirection === 'desc'">▼</span>
+            </div>
+          </div>
         </th>
-        <th>Email
-          <button (click)="sort('email')">
-            {{ sortColumn === 'email' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
-          </button>
+        
+        <th [class.sorted]="sortColumn === 'email'" class="fixed-column">
+          <div class="column-header" (click)="sort('email')">
+            Email
+            <div class="sort-btn">
+              <span class="arrow" [class.active]="sortColumn === 'email' && sortDirection === 'asc'">▲</span>
+              <span class="arrow" [class.active]="sortColumn === 'email' && sortDirection === 'desc'">▼</span>
+            </div>
+          </div>
         </th>
-        <th>DNI
-          <button (click)="sort('id')">
-            {{ sortColumn === 'id' ? (sortDirection === 'asc' ? '▲' : '▼') : '' }}
-          </button>
+        
+        <th [class.sorted]="sortColumn === 'id'" class="fixed-column">
+          <div class="column-header" (click)="sort('id')">
+            DNI
+            <div class="sort-btn">
+              <span class="arrow" [class.active]="sortColumn === 'id' && sortDirection === 'asc'">▲</span>
+              <span class="arrow" [class.active]="sortColumn === 'id' && sortDirection === 'desc'">▼</span>
+            </div>
+          </div>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tbody>
-        <tr *ngFor="let user of getUsersForCurrentPage()" (click)="goToProfile(user.id)">
-          <td>{{ user.name }}</td>
-          <td>{{ user.surname }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.id }}</td>
-        </tr>
-          <tr *ngIf="users.length === 0">
-          <td colspan="4" class="no-data">Cap usuari</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <button (click)="previous()" [disabled]="currentPage === 1">Anteriors</button>
-    <button (click)="next()" [disabled]="currentPage * usersPerPage >= totalUsers">Següents</button>
+      <tr *ngFor="let user of getUsersForCurrentPage()" (click)="goToProfile(user.id)">
+        <td>{{ user.name }}</td>
+        <td>{{ user.surname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.id }}</td>
+      </tr>
+      <tr *ngIf="users.length === 0">
+        <td colspan="4" class="no-data">Cap usuari</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <div class="page-info">
+      <span>Pàgina {{ currentPage }} de {{ totalPages }}</span>
+      <span>Total usuaris: {{ totalUsers }}</span>
+    </div>
+    <div class="page-buttons">
+      <button (click)="previous()" [disabled]="currentPage === 1">Anteriors</button>
+      <button (click)="next()" [disabled]="currentPage * usersPerPage >= totalUsers">Següents</button>
+    </div>
+  </div>
 </div>

@@ -1,35 +1,39 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { User, UserService } from '../../services/users.service';
+import { UserService, User } from '../../services/users.service';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { FilteredUsersService } from '../../services/filtered-users.service';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, FormsModule ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
 export class TableComponent {
+  @Input() users: User[] = [];
+  @Input() totalUsers: number = 0;
 
-  constructor(
-    private router: Router,
-    private userService: UserService
-  ) {}
-
-  users: User[] = [];
   currentPage: number = 1;
   usersPerPage: number = 10;
-  totalUsers: number = 0;
 
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
+
+  showSearch = true;
 
   inputName: string = '';
   inputSurname: string = '';
   inputEmail: string = '';
   inputId: string = '';
+
+  constructor(
+    private router: Router,
+    private filteredUsersService: FilteredUsersService
+  ) {}
 
   eraseAllInputs() {
     this.inputName = '';
@@ -57,6 +61,10 @@ export class TableComponent {
     }
   }
 
+  get totalPages(): number {
+    return Math.ceil(this.totalUsers / this.usersPerPage);
+  }
+
   sort(column: keyof User): void {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -78,18 +86,15 @@ export class TableComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.users = this.userService.getUsers();
-    this.totalUsers = this.users.length;
-  }
-
   getFilteredUsers(): User[] {
-    return this.users.filter(user => 
-      user.name.toLocaleLowerCase().includes(this.inputName.toLocaleLowerCase()) &&
-      user.surname.toLocaleLowerCase().includes(this.inputSurname.toLocaleLowerCase()) &&
-      user.email.toLocaleLowerCase().includes(this.inputEmail.toLocaleLowerCase()) &&
-      user.id.toLocaleLowerCase().includes(this.inputId.toLocaleLowerCase())
+    const filtered = this.users.filter(user => 
+      user.name.toLowerCase().includes(this.inputName.toLowerCase()) &&
+      user.surname.toLowerCase().includes(this.inputSurname.toLowerCase()) &&
+      user.email.toLowerCase().includes(this.inputEmail.toLowerCase()) &&
+      user.id.toLowerCase().includes(this.inputId.toLowerCase())
     );
+    this.filteredUsersService.setFilteredUsers(filtered);
+    return filtered;
   }
 
   getUsersForCurrentPage(): User[] {
@@ -109,11 +114,9 @@ export class TableComponent {
       this.currentPage++;
     }
   }
-
   previous() {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
   }
-
 }

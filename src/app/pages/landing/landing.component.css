@@ -1,0 +1,30 @@
+.full-screen {
+  background-color: #1B365D;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.full-screen h1 {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+button {
+  background-color: white;
+  color: #1B365D;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}

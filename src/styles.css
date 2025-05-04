@@ -1,3 +1,63 @@
 html, body {
   margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.top-nav-bar-btn {
+  background-color: #1B365D;
+  color: white;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.top-nav-bar-btn:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #1B365D;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #1B365D;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  color: #3D74AC;
 }

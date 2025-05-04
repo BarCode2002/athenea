@@ -1,9 +1,9 @@
-<button class="add-user-btn" (click)="openModal()">Afegir Usuari</button>
+<button class="top-nav-bar-btn" (click)="openModal()">Afegir Usuari</button>
 
 <div class="modal-backdrop" *ngIf="showModal">
   <div class="modal">
     <h2>Nou Usuari</h2>
-    <form (ngSubmit)="submitForm()" #userForm="ngForm">
+    <form (ngSubmit)="submitForm()" #userForm="ngForm" class="form-container">
       <div class="form-group">
         <label for="nom">Nom</label>
         <input type="text" id="nom" name="nom" [(ngModel)]="newUser.name" required />
@@ -24,9 +24,9 @@
         <input type="text" id="dni" name="dni" [(ngModel)]="newUser.id" required />
       </div>
 
-      <div class="modal-buttons">
-        <button type="submit" class="submit-btn">Guardar</button>
-        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel·la</button>
+      <div class="modal-buttons-container">
+        <button class="modal-button" type="submit">Guardar</button>
+        <button class="modal-button" (click)="closeModal()">Cancel·la</button>
       </div>
     </form>
   </div>

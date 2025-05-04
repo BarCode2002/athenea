@@ -1,80 +1,59 @@
-.add-user-btn {
-  padding: 10px 20px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 20px;
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
 h2 {
-  margin-top: 0;
-  margin-bottom: 20px;
   text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
 }
 
 label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #555;
 }
 
 input {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  width: 400px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  color: #333;
 }
 
-.modal-buttons {
+input:focus {
+  border-color: #1B365D;
+  outline: none;
+}
+
+.modal-buttons-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.submit-btn,
-.cancel-btn {
-  padding: 8px 16px;
+.modal-button {
+  padding: 12px 20px;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.submit-btn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.cancel-btn {
-  background-color: #f44336;
-  color: white;
+.modal-button:hover {
+  cursor: pointer;
+  background-color: #575957;
 }

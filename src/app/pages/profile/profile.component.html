@@ -1,0 +1,27 @@
+<div *ngIf="user" class="profile-card">
+  <h2>Perfil de l'usuari</h2>
+
+  <div *ngIf="user" class="profile-field">
+    <label>Nom:</label>
+    <span *ngIf="user?.name; else NomSenseEspecificar">{{ user.name }}</span>
+    <ng-template #NomSenseEspecificar>Nom sense especificar</ng-template>
+  </div>
+
+  <div *ngIf="user" class="profile-field">
+    <label>Cognom:</label>
+    <span *ngIf="user?.surname; else CognomSenseEspecificar">{{ user.surname }}</span>
+    <ng-template #CognomSenseEspecificar>Cognom sense especificar</ng-template>
+  </div>
+
+  <div *ngIf="user" class="profile-field">
+    <label>Email:</label>
+    <span *ngIf="user?.email; else EmailSenseEspecificar">{{ user.email }}</span>
+    <ng-template #EmailSenseEspecificar>Email sense especificar</ng-template>
+  </div>
+
+  <div *ngIf="user" class="profile-field">
+    <label>DNI:</label>
+    <span *ngIf="user?.id; else IDSenseEspecificar">{{ user.id }}</span>
+    <ng-template #IDSenseEspecificar>DNI sense especificar</ng-template>
+  </div>
+</div>
