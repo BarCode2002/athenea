@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
-import { User, UserService } from "../../services/users.service";
+import { Component, Input } from "@angular/core";
+import { UserService } from "../../services/users.service";
+import { User } from "../../interfaces/user";
 
 @Component({
     selector: 'app-importTable',

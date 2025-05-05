@@ -12,13 +12,7 @@ import {
   deleteDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface User {
-  name: string;
-  surname: string;
-  email: string;
-  id: string;
-}
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -40,8 +34,20 @@ export class UserService {
     });
   }
 
-  async addUser(user: User): Promise<void> {
+  private async userExists(id: string): Promise<boolean> {
+    const usersRef = collection(this.firestore, 'users');
+    const q = query(usersRef, where('id', '==', id));
+    const snapshot = await getDocs(q);
+    return !snapshot.empty;
+  }
+
+  async addUser(user: User): Promise<{ code: number; message: string }> {
+    if (await this.userExists(user.id)) {
+      console.warn(`User with ID ${user.id} already exists.`);
+      return { code: 409, message: `Usuari amb DNI ${user.id} ja existeix` };
+    }
     await addDoc(this.usersCollection, user);
+    return { code: 201, message: 'User successfully added.' };
   }
 
   async deleteUser(user: User): Promise<void> {
@@ -54,6 +60,12 @@ export class UserService {
   }
 
   async addUsers(users: User[]): Promise<void> {
+    for (const user of users) {
+      if (await this.userExists(user.id)) {
+        console.warn(`User with ID ${user.id} already exists. Aborting import.`);
+        return;
+      }
+    }
     const batch = writeBatch(this.firestore);
     users.forEach((user) => {
       const userRef = doc(this.usersCollection);

@@ -1,9 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { User } from '../../services/users.service';
 import { FormsModule } from '@angular/forms';
 import { FilteredUsersService } from '../../services/filtered-users.service';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-table',

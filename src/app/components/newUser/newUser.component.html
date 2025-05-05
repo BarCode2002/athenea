@@ -24,6 +24,10 @@
         <input type="text" id="dni" name="dni" [(ngModel)]="newUser.id" required />
       </div>
 
+      <div>
+        {{ error }}
+      </div>
+
       <div class="modal-buttons-container">
         <button class="modal-button" type="submit">Guardar</button>
         <button class="modal-button" (click)="closeModal()">Cancel·la</button>

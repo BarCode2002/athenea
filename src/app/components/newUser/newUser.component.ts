@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { User, UserService } from '../../services/users.service';
+import { UserService } from '../../services/users.service';
+import { User } from '../../interfaces/user';
 
 @Component({
     selector: 'app-newUser',
@@ -33,10 +34,13 @@ export class NewUserComponent {
     this.resetForm();
   }
 
-  submitForm() {
+  error = '';
+
+  async submitForm() {
     console.log('New User:', this.newUser);
-    this.userService.addUser(this.newUser);
-    this.closeModal();
+    const response = await this.userService.addUser(this.newUser);
+    if (response.code !== 201) this.error = response.message
+    else this.closeModal();
   }
 
   resetForm() {

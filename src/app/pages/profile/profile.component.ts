@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User, UserService } from '../../services/users.service';
+import { UserService } from '../../services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../interfaces/user';
 
 @Component({
     imports: [CommonModule],

@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from '../../components/table/table.component';
 import { Subscription } from 'rxjs';
-import { User, UserService } from '../../services/users.service';
+import { UserService } from '../../services/users.service';
 import { TopNavBarComponent } from '../../components/topNavBar/topNavBar.component';
+import { User } from '../../interfaces/user';
 
 @Component({
     imports: [

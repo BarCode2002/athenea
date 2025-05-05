@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { User } from './users.service';
+import { User } from '../interfaces/user';
 
 @Injectable({ providedIn: 'root' })
 export class FilteredUsersService {
-  private filteredUsersSubject = new BehaviorSubject<User[]>([]);
-  filteredUsers$ = this.filteredUsersSubject.asObservable();
+  private filteredUsers: User[] = [];
 
   setFilteredUsers(users: User[]) {
-    this.filteredUsersSubject.next(users);
+    this.filteredUsers = users;
   }
 
   getSnapshot(): User[] {
-    return this.filteredUsersSubject.value;
+    return this.filteredUsers;
   }
 }
