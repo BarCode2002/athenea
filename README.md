@@ -4,9 +4,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Quick start
 
-- Clone the repository
-- Execute docker-compose up
-- App is running on localhost:80
+1. Clone the repository
+2. cd athenea
+3. Execute docker-compose up
+4. App is running on localhost:80
 
 ## Development server
 

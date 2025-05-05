@@ -6,12 +6,10 @@ import {
   Firestore,
   writeBatch,
   doc,
-  getDoc,
-  DocumentReference,
-  DocumentData,
   query,
   where,
   getDocs,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -42,12 +40,17 @@ export class UserService {
     });
   }
 
-  getUsersSnapshot(): User[] {
-    return this.usersSubject.value;
-  }
-
   async addUser(user: User): Promise<void> {
     await addDoc(this.usersCollection, user);
+  }
+
+  async deleteUser(user: User): Promise<void> {
+    const usersRef = collection(this.firestore, 'users');
+    const q = query(usersRef, where('id', '==', user.id));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) return;
+    const docSnap = querySnapshot.docs[0];
+    await deleteDoc(docSnap.ref);
   }
 
   async addUsers(users: User[]): Promise<void> {
@@ -55,6 +58,16 @@ export class UserService {
     users.forEach((user) => {
       const userRef = doc(this.usersCollection);
       batch.set(userRef, user);
+    });
+    await batch.commit();
+  }
+
+  async deleteAllUsers(): Promise<void> {
+    const batch = writeBatch(this.firestore);
+    const usersRef = collection(this.firestore, 'users');
+    const querySnapshot = await getDocs(usersRef);
+    querySnapshot.forEach((docSnap) => {
+      batch.delete(docSnap.ref); 
     });
     await batch.commit();
   }
@@ -67,5 +80,11 @@ export class UserService {
       const docSnap = querySnapshot.docs[0];
       return docSnap ? (docSnap.data() as User) : undefined;
     });
+  }
+
+  async replaceAllUsers(newUsers: User[]): Promise<void> {
+    await this.deleteAllUsers();
+    await this.addUsers(newUsers);
+    this.usersSubject.next(newUsers);
   }
 }

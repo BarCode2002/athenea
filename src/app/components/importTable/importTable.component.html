@@ -1,15 +1,12 @@
-<button class="top-nav-bar-btn" (click)="openModal()">Importa una taula</button>
+<input
+  type="file"
+  id="file-upload"
+  #fileInput
+  (change)="onFileSelected($event)"
+  accept=".json,.csv"
+  style="display: none"
+/>
 
-<div class="modal-backdrop" *ngIf="showModal">
-  <div class="modal">
-    <div class="modal-header">
-      <button class="close-modal-btn" (click)="closeModal()">×</button>
-    </div>
-    <div class="modal-body">
-      <p><strong>Formats suportats:</strong> JSON i CSV</p>
-      <div class="file-input-container">
-        <input type="file" id="file-upload" (change)="onFileSelected($event)" accept=".json,.csv" />
-      </div>
-    </div>
-  </div>
-</div>
+<button class="top-nav-bar-btn" (click)="fileInput.click()">
+  {{ mode === 'table' ? 'Importa una taula' : 'Importa usuaris' }}  
+</button>

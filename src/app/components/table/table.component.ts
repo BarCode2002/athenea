@@ -1,9 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserService, User } from '../../services/users.service';
+import { User } from '../../services/users.service';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { FilteredUsersService } from '../../services/filtered-users.service';
 
 @Component({

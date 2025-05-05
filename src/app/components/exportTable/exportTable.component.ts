@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from '../../services/users.service';
 import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
 import { FilteredUsersService } from '../../services/filtered-users.service';
@@ -32,14 +31,12 @@ export class ExportTableComponent {
     const doc = new jsPDF();
     const head = [['Nom', 'Cognom', 'Email', 'DNI']];
     const tableData = users.map(user => [user.name, user.surname, user.email, user.id]);
-  
     autoTable(doc, {
       head: head,
       body: tableData,
       startY: 20,
       theme: 'striped'
     });
-  
     doc.save('users.pdf');
     this.showModal = false;
   }

@@ -1,23 +1,45 @@
-.profile-card {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 30px;
-  border-radius: 15px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-  transition: all 0.3s ease;
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
-.profile-card:hover {
-  transform: translateY(-5px); /* Slight hover effect to lift the card */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+.profile-card {
+  margin-top: 50px;
+  width: 500px;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-header button {
+  border: none;
+  background-color: red;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 10px;
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+.profile-header button:hover {
+  cursor: pointer;
+  transform: scale(1.02);
 }
 
 h2 {
   text-align: center;
   font-size: 2rem;
-  color: #1B365D; /* Use your brand color */
+  color: #1B365D;
   margin-bottom: 20px;
   font-weight: 700;
 }
@@ -42,13 +64,4 @@ span {
   font-size: 1.1rem;
   color: #333;
   font-weight: 400;
-}
-
-ng-template {
-  font-style: italic;
-  color: #888;
-}
-
-.profile-field:last-child {
-  border-bottom: none;
 }
