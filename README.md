@@ -1,6 +1,12 @@
 # Athenea
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.
+
+## Quick start
+
+- Clone the repository
+- Execute docker-compose up
+- App is running on localhost:80
 
 ## Development server
 
